@@ -1,18 +1,16 @@
-function createEmployeeRecord() {
-  return `${this.firstName}, ${this.familyName}, ${this.title}, ${this.payPerHour}`;
+function createEmployeeRecord(employeeArray) {
+  const employeeRecord = {};
+
+  const [firstName, familyName, title, payPerHour] = employeeArray;
+
+  employeeRecord.firstName = firstName;
+  employeeRecord.familyName = familyName;
+  employeeRecord.title = title;
+  employeeRecord.payPerHour = payPerHour;
+  employeeRecord.timeInEvents = [];
+  employeeRecord.timeOutEvents = [];
+  return employeeRecord;
 }
-
-const payroll = {
-  firstName: "John",
-  familyName: "Doe",
-  title: "Software Engineer",
-  payPerHour: 20,
-  timeInEvents: [],
-  timeOutEvents: []
-};
-
-const boundCreateEmployeeRecord = createEmployeeRecord.bind(payroll);
-console.log(boundCreateEmployeeRecord())
 
 function createEmployeeRecords(employeeData) {
     return employeeData.map((data) => {
@@ -27,12 +25,12 @@ function createEmployeeRecords(employeeData) {
     };
 });
 }
-const employeeData = [
-  ["John", "Doe", "Software Engineer", "20"],
-  ["Jane", "Smith", "Product Manager", "25"],
-];
-const boundMap = createEmployeeRecords.bind(null, employeeData);
-console.log(boundMap());
+// const employeeData = [
+//   ["John", "Doe", "Software Engineer", "20"],
+//   ["Jane", "Smith", "Product Manager", "25"],
+// ];
+// const boundMap = createEmployeeRecords.bind(null, employeeData);
+// console.log(boundMap());
 
 function createTimeInEvent(employee, dateTimeString) {
     const [date, time] = dateTimeString.split(" ");
@@ -50,10 +48,10 @@ function createTimeInEvent(employee, dateTimeString) {
     employee.timeInEvents.push(timeInEventObj);
     return employee;
   }
-  const employee = {name: "John Doe"};
-  const dateTimeString = "2022-01-01 09:00";
-  const boundfunction = createTimeInEvent.bind(employee);
-  boundfunction(dateTimeString);
+  // const employee = {name: "John Doe"};
+  // const dateTimeString = "2022-01-01 09:00";
+  // const boundfunction = createTimeInEvent.bind(employee);
+  // boundfunction(dateTimeString);
 
   function createTimeOutEvent(employee, dateTimeString) {
     const [date, time] = dateTimeString.split(" ");
@@ -64,11 +62,11 @@ function createTimeInEvent(employee, dateTimeString) {
       date: date,
       hour: parseInt(time),
     };
-    if (!this.timeOutEvents) {
-      this.timeOutEvents = [];
+    if (!employee.timeOutEvents) {
+      employee.timeOutEvents = [];
     }
-    this.timeOutEvents.push(timeOutObj);
-    return this;
+    employee.timeOutEvents.push(timeOutObj);
+    return employee;
   }
  
   function hoursWorkedOnDate(record, dateMatched) {    
@@ -78,9 +76,9 @@ function createTimeInEvent(employee, dateTimeString) {
     const elapsedHours = elapsedMilliseconds / 100;
     return elapsedHours;
   }
-  const boundFunction = hoursWorkedOnDate(record);
-  const dateMatched = "2022-01-01";
-  boundFunction(dateMatched)
+  // const boundFunction = hoursWorkedOnDate(record);
+  // const dateMatched = "2022-01-01";
+  // boundFunction(dateMatched)
 
   function wagesEarnedOnDate(record, dateMatched) {
     const [date] = dateMatched.split(" ");
